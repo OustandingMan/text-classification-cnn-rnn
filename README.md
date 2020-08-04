@@ -23,6 +23,8 @@ CNN做句子分类的论文可以参看: [Convolutional Neural Networks for Sent
 ## 数据集
 
 使用THUCNews的一个子集进行训练与测试，数据集请自行到[THUCTC：一个高效的中文文本分类工具包](http://thuctc.thunlp.org/)下载，请遵循数据提供方的开源协议。
+下载需提供相关信息，然后选择THUCNews.zip	（THUCNews中文文本数据集 1.56G）http://thuctc.thunlp.org/sendMessage
+下载后解压放到项目根目录下，与data文件夹并列。 这里解压后的 文件夹为14个，可适量进行删减 为以下10个。
 
 本次训练使用了其中的10个分类，每个分类6500条数据。
 
@@ -45,6 +47,9 @@ CNN做句子分类的论文可以参看: [Convolutional Neural Networks for Sent
 - cnews.train.txt: 训练集(50000条)
 - cnews.val.txt: 验证集(5000条)
 - cnews.test.txt: 测试集(10000条)
+
+操作如下：在data文件夹下创建文件夹，名称为 thucnews，然后在项目根路径下 执行`pwd`/helper/copy_data.sh 脚本，可能需要修改权限，如下chmod 764 test.sh 赋权后就可以正常执行；
+然后在data文件夹里创建 cnews的文件夹，执行 python helper/cnews_group.py 得到三个txt文件
 
 ## 预处理
 
