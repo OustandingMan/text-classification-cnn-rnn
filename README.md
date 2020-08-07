@@ -381,6 +381,7 @@ class TCNNConfig(object):
 改动里面的num_classes就可以了，做几分类就改成多少。
 
 然后打开data文件夹里面的cnews_loader.py文件，找到下面代码
+'''
 def read_category():
     """读取分类目录，固定"""
     categories = ['体育', '财经', '房产', '家居', '教育', '科技', '时尚', '时政', '游戏', '娱乐', '彩票', '股票', '社会', '星座']
@@ -391,7 +392,7 @@ def read_category():
     cat_to_id = dict(zip(categories, range(len(categories))))
 
     return categories, cat_to_id
-   
+'''   
 改掉categories里的标签，把它们改成你自己设置的标签就好了
 
 到这里就结束了。然后cmd，切换到run_cnn.py文件所在目录，敲入
