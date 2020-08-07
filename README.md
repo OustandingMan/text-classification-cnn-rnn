@@ -362,7 +362,7 @@ class TCNNConfig(object):
     embedding_dim = 64  # 词向量维度
     seq_length = 600  # 序列长度
     num_classes = 14  # 类别数 update lym 0730
-#     num_classes = 10  # 类别数
+    num_classes = 10  # 类别数
     num_filters = 256  # 卷积核数目
     kernel_size = 5  # 卷积核尺寸
     vocab_size = 5000  # 词汇表达小
@@ -384,7 +384,7 @@ class TCNNConfig(object):
 def read_category():
     """读取分类目录，固定"""
     categories = ['体育', '财经', '房产', '家居', '教育', '科技', '时尚', '时政', '游戏', '娱乐', '彩票', '股票', '社会', '星座']
-#     categories = ['体育', '财经', '房产', '家居', '教育', '科技', '时尚', '时政', '游戏', '娱乐'] # update 14个 lym
+    categories = ['体育', '财经', '房产', '家居', '教育', '科技', '时尚', '时政', '游戏', '娱乐'] # update 14个 lym
 
     categories = [native_content(x) for x in categories]
 
