@@ -345,3 +345,58 @@ Time usage: 0:00:33
 ## 预测
 
 为方便预测，repo 中 `predict.py` 提供了 CNN 模型的预测方法。
+
+
+## 如何使用自己的数据集进行模型训练？
+
+1.打开data文件夹，再打开里面的cnews文件夹，你会看到里面有四个文件 cnews.test.txt cnews.train.txt cnews.val.txt cnews.vocab.txt,只需要按照里面格式替换前三个文件。一共是两列，一列是标签，另一列就是文本数据。文件名也不要改动，三个文件的数据格式是一样的。。如下：
+体育   马晓旭意外受伤让国奥警惕
+体育   商瑞华首战复仇心切
+
+这里提示一下，训练数据集最好分布均衡，比如我的广告数据集，就是做二分类。那么假设训练集一共10000条数据，我就要找到5000条广告数据和5000条非广告数据来做训练集。
+
+数据替换完毕之后，要更改代码了。代码只需要改动两个地方就可以了。打开cnn_model.py文件，找到下面代码：
+class TCNNConfig(object):
+    """CNN配置参数"""
+
+    embedding_dim = 64  # 词向量维度
+    seq_length = 600  # 序列长度
+    num_classes = 14  # 类别数 update lym 0730
+#     num_classes = 10  # 类别数
+    num_filters = 256  # 卷积核数目
+    kernel_size = 5  # 卷积核尺寸
+    vocab_size = 5000  # 词汇表达小
+
+    hidden_dim = 128  # 全连接层神经元
+
+    dropout_keep_prob = 0.5  # dropout保留比例
+    learning_rate = 1e-3  # 学习率
+
+    batch_size = 64  # 每批训练大小
+    num_epochs = 10  # 总迭代轮次
+
+    print_per_batch = 100  # 每多少轮输出一次结果
+    save_per_batch = 10  # 每多少轮存入tensorboard
+   
+改动里面的num_classes就可以了，做几分类就改成多少。
+
+然后打开data文件夹里面的cnews_loader.py文件，找到下面代码
+def read_category():
+    """读取分类目录，固定"""
+    categories = ['体育', '财经', '房产', '家居', '教育', '科技', '时尚', '时政', '游戏', '娱乐', '彩票', '股票', '社会', '星座']
+#     categories = ['体育', '财经', '房产', '家居', '教育', '科技', '时尚', '时政', '游戏', '娱乐'] # update 14个 lym
+
+    categories = [native_content(x) for x in categories]
+
+    cat_to_id = dict(zip(categories, range(len(categories))))
+
+    return categories, cat_to_id
+   
+改掉categories里的标签，把它们改成你自己设置的标签就好了
+
+到这里就结束了。然后cmd，切换到run_cnn.py文件所在目录，敲入
+python run_cnn.py train
+这样就是训练模型了，训练好之后，模型会自动保存到checkpoints文件夹里面。 测试模型的效果输入以下命令即可
+
+python run_cnn.py test
+然后你就会得到模型的效果了。
